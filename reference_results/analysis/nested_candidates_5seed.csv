@@ -1,0 +1,10 @@
+target,target_short,level,candidate,calibration,test_used_for_selection,selection_scope,mae_mean,mae_std,rmse_mean,r2_mean,n_seeds
+sterimol_B5,B5,L4_32,sum_pc_Bmax_all,huber,False,fit_train_only_select_on_cal_then_test_once,0.02865793791821587,0.0023341811492341544,0.04857317367752954,0.9989376318610168,5
+sterimol_L,L,L4_32,sum_pc_Lpos_all,ridge_quadratic,False,fit_train_only_select_on_cal_then_test_once,0.053914638814780376,0.0027520460510507268,0.0855633075247058,0.9964473335147904,3
+sterimol_L,L,L4_32,sum_pc_Lpos_all,huber,False,fit_train_only_select_on_cal_then_test_once,0.053265933025729156,0.000895239207159311,0.08997606280887088,0.9952413911048037,2
+sterimol_burB5,BurB5,L4_32,sum_pc_R4.4_touch_Bmax,isotonic,False,fit_train_only_select_on_cal_then_test_once,0.08749269764002002,0.0,0.16244660391521015,0.9542711246935668,1
+sterimol_burB5,BurB5,L4_32,sum_pc_R4.2_touch_Bmax,huber,False,fit_train_only_select_on_cal_then_test_once,0.10817802777833777,0.0,0.1933232012677492,0.9358837740600103,1
+sterimol_burB5,BurB5,L4_32,sum_pc_R4.3_touch_Bmax,isotonic,False,fit_train_only_select_on_cal_then_test_once,0.09247667176800911,0.0,0.17093208021727252,0.9523791556677312,1
+sterimol_burB5,BurB5,L4_32,sum_pc_R4.3_touch_Bmax,ridge_quadratic,False,fit_train_only_select_on_cal_then_test_once,0.08690358064359699,0.005834756359966466,0.16647139372891695,0.9407218384650743,2
+sterimol_burL,BurL,L4_32,sum_pc_R2.7_touch_Lpos,huber,False,fit_train_only_select_on_cal_then_test_once,0.059584974542257,0.006098127830463758,0.13898167496274325,0.844076048934401,2
+sterimol_burL,BurL,L4_32,sum_pc_R2.7_touch_Lpos,isotonic,False,fit_train_only_select_on_cal_then_test_once,0.057373082582075165,0.005932892291984487,0.09950102022773694,0.9309324854624564,3

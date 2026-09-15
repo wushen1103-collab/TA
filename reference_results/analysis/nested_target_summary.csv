@@ -1,0 +1,5 @@
+target,target_short,level,test_used_for_selection,selection_scope,mae_mean,mae_std,rmse_mean,r2_mean,n_seeds
+sterimol_B5,B5,L4_32,False,fit_train_only_select_on_cal_then_test_once,0.028657937918215814,0.0023341811492341414,0.0485731736775295,0.9989376318610166,5
+sterimol_L,L,L4_32,False,fit_train_only_select_on_cal_then_test_once,0.05365515649915984,0.0020281735140971957,0.08732840963837178,0.995964956550796,5
+sterimol_burB5,BurB5,L4_32,False,fit_train_only_select_on_cal_then_test_once,0.09239091169471213,0.009585130096441827,0.17192893457161312,0.9447955462702915,5
+sterimol_burL,BurL,L4_32,False,fit_train_only_select_on_cal_then_test_once,0.05825783936614788,0.005325799099324786,0.11529328212173943,0.8961899108512343,5

@@ -1,0 +1,36 @@
+__pycache__/
+*.py[cod]
+*.joblib
+*.pickle
+*.pkl
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+
+# Downloaded source data and generated artifacts
+data/Kraken.zip
+results/
+figures/*.pdf
+figures/*.png
+figures/*.svg
+figures/*_metadata.json
+
+# Local environments and editor files
+.venv/
+env/
+.idea/
+.vscode/
+
+# Files retained only in the local source snapshot
+fcsr/data.py
+fcsr/drugs.py
+fcsr/models.py
+fcsr/oracle.py
+fcsr/policy.py
+scripts/build_experiment_completion_tables.py
+scripts/inspect_kraken_record.py
+scripts/kraken_conformer_target_oracle.py
+figures/source_data/*
+!figures/source_data/fig5_ad_residual_distance_source_data.csv
+!figures/source_data/fig5_ad_domain_summary_source_data.csv
