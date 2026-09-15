@@ -741,7 +741,7 @@ def build_perturbation_robustness(
     mol_df: pd.DataFrame,
     records: list[ConfRecord] | None,
     skip_geometry_noise: bool,
-) -> pd.DataFrame:
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     fixed_cols = fixed_candidate_cols()
     clean_agg = aggregate_level(conf_df, fixed_cols, "boltzmann")
     calibrators = clean_train_calibrators(clean_agg, mol_df)
@@ -774,7 +774,21 @@ def build_perturbation_robustness(
     summary["delta_vs_clean_mae"] = summary["mae_mean"] - summary["clean_mae_mean"]
     save_csv(raw, out, "perturbation_raw.csv")
     save_csv(summary, out, "perturbation_5seed_full.csv")
-    return summary
+    return summary, raw
+
+
+def compact_perturbations(raw: pd.DataFrame) -> pd.DataFrame:
+    """Average stochastic repeats within each seed before five-seed summary."""
+    compact = raw.copy()
+    compact["magnitude"] = compact["parameter"].astype(str).str.replace(r"_rep\d+$", "", regex=True)
+    per_seed = (
+        compact.groupby(["perturbation_type", "magnitude", "target_short", "seed"], as_index=False)["mae"]
+        .mean()
+    )
+    return (
+        per_seed.groupby(["perturbation_type", "magnitude", "target_short"], as_index=False)["mae"]
+        .agg(mae_mean="mean", mae_std="std", n_seeds="count")
+    )
 
 
 def fibonacci_sphere(n: int) -> np.ndarray:
@@ -906,9 +920,9 @@ def build_axis_diagnostic(out: Path, records: list[ConfRecord], sphere_n: int) -
                 }
             )
     corr = pd.DataFrame(corr_rows)
-    save_csv(summary, out, "table1_descriptor_inferred_axis_angular_summary.csv")
-    save_csv(corr, out, "table1b_axis_error_correlation.csv")
-    save_csv(angle_df, out, "table1c_axis_diagnostic_raw_by_conformer.csv")
+    save_csv(summary, out, "descriptor_axis_summary.csv")
+    save_csv(corr, out, "descriptor_axis_correlations.csv")
+    save_csv(angle_df, out, "descriptor_axis_raw.csv")
     return summary, corr
 
 
@@ -1070,14 +1084,12 @@ def main() -> None:
     if not args.skip_axis_diagnostic and records is not None:
         axis_summary, _corr = build_axis_diagnostic(out, records, args.axis_sphere)
 
-    perturb = build_perturbation_robustness(out, conf_df, mol_df, records, args.skip_geometry_noise)
-    compact = perturb.rename(columns={"parameter": "magnitude"})[
-        ["perturbation_type", "magnitude", "target_short", "mae_mean", "mae_std", "n_seeds"]
-    ]
+    perturb, perturb_raw = build_perturbation_robustness(out, conf_df, mol_df, records, args.skip_geometry_noise)
+    compact = compact_perturbations(perturb_raw)
     save_csv(compact, out, "perturbation_5seed.csv")
     family = build_chemical_family_stratification(out, mol_df, conf_df, predictions)
     make_markdown_summary(out, error_decomp, radius, learning, perturb, family, axis_summary)
-    print("[done] supplement audit complete")
+    print("[done] analysis complete")
 
 
 if __name__ == "__main__":
