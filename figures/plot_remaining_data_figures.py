@@ -58,14 +58,14 @@ TARGETS = (
 TARGET_NAME = dict(TARGETS)
 
 FRAME_LABELS = {
-    "sum_pc": r"Summed P--X",
-    "pc0": r"P--X direction 1",
-    "pc1": r"P--X direction 2",
-    "pc2": r"P--X direction 3",
+    "sum_pc": r"Functional axis",
+    "pc0": "P\u2013substituent direction 1",
+    "pc1": "P\u2013substituent direction 2",
+    "pc2": "P\u2013substituent direction 3",
     "pca0": r"Principal component 1",
     "pca1": r"Principal component 2",
     "pca2": r"Principal component 3",
-    "lone_pair": r"Sign-reversed sum",
+    "lone_pair": r"Sign-reversed functional axis",
     "global_x": r"Global $x$-axis",
 }
 FRAME_COLORS = {
@@ -337,13 +337,13 @@ def plot_complete_frame_heatmap() -> dict[str, object]:
     colorbar = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax)
     ticks = np.arange(0.0, colour_limit + 0.1, 1.0)
     colorbar.set_ticks(ticks, labels=[f"{int(2**tick)}x" for tick in ticks])
-    colorbar.set_label("MAE / summed-frame MAE", fontsize=10.5)
+    colorbar.set_label("MAE ratio", fontsize=10.5)
     colorbar.ax.tick_params(labelsize=8.0, length=2.2, width=SPINE_WIDTH)
     colorbar.outline.set_linewidth(SPINE_WIDTH)
 
     result = save_figure(fig, "FigS2_complete_frame_ablation")
     result["source_rows"] = len(out)
-    result["colour_transform"] = "log2(MAE/summed-frame MAE)"
+    result["colour_transform"] = "log2(MAE/functional-axis MAE)"
     return result
 
 

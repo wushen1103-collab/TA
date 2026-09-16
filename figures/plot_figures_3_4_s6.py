@@ -195,7 +195,7 @@ def load_figure3_data() -> pd.DataFrame:
     }
     fixed_item = {
         "group": "fcsr_fixed",
-        "method": "FCSR, fixed",
+        "method": "Fixed FCSR",
         "provenance": "our_rerun",
         "n_seeds": 5,
     }
@@ -207,7 +207,7 @@ def load_figure3_data() -> pd.DataFrame:
     nested_by_target = nested.set_index("target_short")
     nested_item = {
         "group": "fcsr_nested",
-        "method": "FCSR, nested",
+        "method": "Nested FCSR",
         "provenance": "our_clean_room_rerun",
         "n_seeds": 5,
     }
@@ -296,8 +296,8 @@ def plot_figure3(data: pd.DataFrame) -> dict[str, object]:
         ("classic", "Classic"),
         ("same_task_sota", "2D/3D learned"),
         ("direct_mechanism", "Conformer/multimodal"),
-        ("fcsr_fixed", "FCSR, fixed"),
-        ("fcsr_nested", "FCSR, nested"),
+        ("fcsr_fixed", "Fixed FCSR"),
+        ("fcsr_nested", "Nested FCSR"),
     ]
     handles = []
     for key, label in legend_items:
